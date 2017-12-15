@@ -10,7 +10,7 @@ if [ -z "$REGISTRATION_TOKEN" ]; then
   exit 1
 fi
 
-if [ "$PRIVILIGED_MODE" -ne "true" ]; then
+if [ "$PRIVILIGED_MODE" != "true" ]; then
   PRIVILIGED_MODE="false"
 fi
 

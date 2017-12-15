@@ -1,8 +1,10 @@
 # Gitlab Runner Auto Register
 
-Forked form https://github.com/pcodk/gitlab-runner-auto-register
+Created according to https://docs.gitlab.com/runner/install/linux-repository.html
+With additional flags to enable auto registry with given url and token.
+The default image needs additional step of executing script from outside of container which makes it hard to automate deployment.
 
-# Run
+# Running instructions
 
 To run simply execute: 
 
@@ -37,6 +39,10 @@ docker exec -i gitlab-runner gitlab-runner register
 - `REGISTRATION_TOKEN` /settings/ci_cd tab of your project
 - `PRIVILIGED_MODE` should you need to run in priviliged mode set to true (otherwise defaults to false)
 
-For more information about the the environment variables:
+For more information about the the environment variables check [here](https://github.com/ayufan/gitlab-ci-multi-runner/blob/master/docs/commands/README.md#gitlab-runner-register
+)
 
-https://github.com/ayufan/gitlab-ci-multi-runner/blob/master/docs/commands/README.md#gitlab-runner-register
+# Inspiration
+
+Forked form https://github.com/pcodk/gitlab-runner-auto-register
+https://github.com/ayufan/gitlab-ci-multi-runner
