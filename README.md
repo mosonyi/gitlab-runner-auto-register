@@ -12,7 +12,7 @@ To run simply execute:
 docker run -d -e "CI_SERVER_URL=https://gitlab.com/" \
    -e "REGISTRATION_TOKEN=XXXXXXXXXXXXXX" \
    -e PRIVILIGED_MODE=false \
-   --name gitlab-runner
+   --name gitlab-runner \
    flakm/gitlab-runner-auto-register:latest 
 ```
 
