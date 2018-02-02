@@ -4,6 +4,12 @@ Created according to [official doc](https://docs.gitlab.com/runner/install/linux
 
 The default image needs additional step of executing script from outside of container which makes it hard to automate deployment.
 
+# Gitlab runner version
+
+| tag       | version       |
+| --------- | --------------|
+| 0.0.3     | 10.2.0        |
+| 0.0.4     | 10.4.0        |
 
 # Running instructions
 
