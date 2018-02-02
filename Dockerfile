@@ -5,6 +5,7 @@ RUN chmod +x /usr/bin/dumb-init
 
 RUN apt-get update -y && \
     apt-get upgrade -y && \
+    apt-get install jq -y && \
     apt-get install -y ca-certificates curl apt-transport-https vim && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -13,9 +14,10 @@ RUN apt-get update -y && \
 RUN curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | bash
 RUN apt-get -y install gitlab-runner
 
-ADD entrypoint /
-RUN chmod +x /entrypoint
+ADD entrypoint.sh /
+ADD gitlab_functions.sh /
 
-ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint"]
+RUN chmod +x /entrypoint.sh /gitlab_functions.sh
+
+ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint.sh"]
 CMD ["run", "--user=gitlab-runner", "--working-directory=/home/gitlab-runner"]
-

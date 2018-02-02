@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 if [ -z "$CI_SERVER_URL" ]; then
-  echo "ERROR: Env CI_SERVER_URL not set!"
-  exit 1
+  CI_SERVER_URL="https://gitlab.com/"
 fi
 
 if [ -z "$REGISTRATION_TOKEN" ]; then
@@ -13,6 +12,16 @@ fi
 if [ "$PRIVILIGED_MODE" != "true" ]; then
   PRIVILIGED_MODE="false"
 fi
+
+if [ "$LOCKED_MODE" != "true" ]; then
+  LOCKED_MODE="false"
+fi
+
+if [ "$ADMIN_TOKEN" != "" ]; then
+  REGISTER_OTHER_PROJECTS="true"
+  PROJECTS_STRING="$PROJECTS_TO_REGISTER"
+fi
+
 
 # gitlab-ci-multi-runner data directory
 DATA_DIR="/etc/gitlab-runner"
@@ -41,11 +50,27 @@ trap "gitlab-runner stop" SIGTERM
 echo "===> Running gitlab-runner register..."
 export REGISTER_NON_INTERACTIVE=true
 export RUNNER_NAME="$HOSTNAME"
-gitlab-runner register --executor=docker --docker-image docker:latest  --docker-privileged=$PRIVILIGED_MODE --docker-volumes /var/run/docker.sock:/var/run/docker.sock
+
+gitlab-runner register --executor=docker --locked=$LOCKED_MODE --docker-image=docker:latest  --docker-privileged=$PRIVILIGED_MODE --docker-volumes=/var/run/docker.sock:/var/run/docker.sock
 if [ $? -gt 0 ]; then
   echo "===> ERROR: Registration failed!"
   exit 1
 fi
+
+
+if [ "$REGISTER_OTHER_PROJECTS" == "true" ]; then
+  source ./gitlab_functions.sh
+  RUNNER_ID=$(getRunnerIdByDescription "$RUNNER_NAME" "$CI_SERVER_URL" "$ADMIN_TOKEN")
+
+  projects=$(echo "$PROJECTS_STRING" | tr ";" "\n")
+
+  for PROJECT_ID in $projects
+  do
+      echo "registering runner $RUNNER_ID to [$PROJECT_ID]"
+      registerRunnerToProject "$RUNNER_ID" "$PROJECT_ID" "$CI_SERVER_URL" "$ADMIN_TOKEN"
+  done  
+fi
+
 
 echo "===> Current version of gitlab-runner:"
 gitlab-runner --version
