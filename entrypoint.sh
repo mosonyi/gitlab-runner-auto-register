@@ -14,7 +14,7 @@ if [ "$PRIVILIGED_MODE" != "true" ]; then
 fi
 
 if [ "$LOCKED_MODE" != "true" ]; then
-  LOCKED_MODE="false"
+  LOCKED_MODE="true"
 fi
 
 if [ "$ADMIN_TOKEN" != "" ]; then

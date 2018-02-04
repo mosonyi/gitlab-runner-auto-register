@@ -6,11 +6,10 @@ The default image needs additional step of executing script from outside of cont
 
 # Gitlab runner version
 
-| tag       | version       |
-| --------- | --------------|
-| 0.0.3     | 10.2.0        |
-| 0.0.4     | 10.4.0        |
-| 0.0.5     | 10.4.0        |
+| tag               | version       |
+| ---------------   | --------------|
+| `0.0.3`           | 10.2.0        |
+| `0.0.4`-`0.0.6`   | 10.4.0        |
 
 
 # Running instructions
@@ -26,7 +25,7 @@ docker run -d -e CI_SERVER_URL="https://gitlab.com/" \
    flakm/gitlab-runner-auto-register:latest 
 ```
 
-To create runner that registres itself in more then one directory use
+To create runner that registres itself in more then one project set `LOCKED_MODE` to false and provide both `ADMIN_TOKEN` and `PROJECTS_TO_REGISTER` variables.
 
 ```bash
 REGISTRATION_TOKEN=""
@@ -37,6 +36,7 @@ docker run -d -e "CI_SERVER_URL=https://gitlab.com/" \
    -e REGISTRATION_TOKEN="$REGISTRATION_TOKEN" \
    -e ADMIN_TOKEN="$ADMIN_TOKEN" \
    -e PROJECTS_TO_REGISTER="$PROJECTS_TO_REGISTER" \
+   -e LOCKED_MODE="false" \
    --name gitlab-runner-testing \
    -v /var/run/docker.sock:/var/run/docker.sock \
    flakm/gitlab-runner-auto-register:latest
@@ -68,7 +68,7 @@ docker exec -i gitlab-runner gitlab-runner register
 |`CI_SERVER_URL`        |  url of gitlab instance                                                                                                |                                 | true          |
 |`REGISTRATION_TOKEN`   |  /settings/ci_cd tab of your project                                                                                   |                                 | true          |
 |`PRIVILIGED_MODE`      |  should you need to run in priviliged mode set to true (otherwise defaults to false)                                   | false                           | false         |           
-|`LOCKED_MODE`          |  should this runner be locked to this project or not                                                                   | false                           | false         |
+|`LOCKED_MODE`          |  should this runner be locked to this project or not                                                                   | true                            | false         |
 |`ADMIN_TOKEN`          |  access token with admin privilages (if specified runner will be registered for projects`PROJECTS_TO_REGISTER`)        |                                 | false         |
 |`PROJECTS_TO_REGISTER` |  project ids seperated by `;`                                                                                          |                                 | false         |
 |`CUSTOM_RUNNER_NAME`   |  runner's description                                                                                                  | `$HOSTNAME`                     | false         |
