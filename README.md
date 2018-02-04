@@ -10,6 +10,8 @@ The default image needs additional step of executing script from outside of cont
 | --------- | --------------|
 | 0.0.3     | 10.2.0        |
 | 0.0.4     | 10.4.0        |
+| 0.0.5     | 10.4.0        |
+
 
 # Running instructions
 
@@ -21,7 +23,6 @@ docker run -d -e CI_SERVER_URL="https://gitlab.com/" \
    -e REGISTRATION_TOKEN="$REGISTRATION_TOKEN" \
    --name gitlab-runner \
    -v /var/run/docker.sock:/var/run/docker.sock \
-   grauto2 
    flakm/gitlab-runner-auto-register:latest 
 ```
 
@@ -70,7 +71,7 @@ docker exec -i gitlab-runner gitlab-runner register
 |`LOCKED_MODE`          |  should this runner be locked to this project or not                                                                   | false                           | false         |
 |`ADMIN_TOKEN`          |  access token with admin privilages (if specified runner will be registered for projects`PROJECTS_TO_REGISTER`)        |                                 | false         |
 |`PROJECTS_TO_REGISTER` |  project ids seperated by `;`                                                                                          |                                 | false         |
-
+|`CUSTOM_RUNNER_NAME`   |  runner's description                                                                                                  | `$HOSTNAME`                     | false         |
 
 For more information about the the environment variables execute `gitlab-runner register --help` inside docker
 

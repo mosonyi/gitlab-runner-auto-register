@@ -22,6 +22,11 @@ if [ "$ADMIN_TOKEN" != "" ]; then
   PROJECTS_STRING="$PROJECTS_TO_REGISTER"
 fi
 
+if [ "$CUSTOM_RUNNER_NAME" != "" ]; then
+  export RUNNER_NAME="$CUSTOM_RUNNER_NAME"
+else
+  export RUNNER_NAME="$HOSTNAME"
+fi
 
 # gitlab-ci-multi-runner data directory
 DATA_DIR="/etc/gitlab-runner"
@@ -49,7 +54,6 @@ trap "gitlab-runner stop" SIGTERM
 
 echo "===> Running gitlab-runner register..."
 export REGISTER_NON_INTERACTIVE=true
-export RUNNER_NAME="$HOSTNAME"
 
 gitlab-runner register --executor=docker --locked=$LOCKED_MODE --docker-image=docker:latest  --docker-privileged=$PRIVILIGED_MODE --docker-volumes=/var/run/docker.sock:/var/run/docker.sock
 if [ $? -gt 0 ]; then
