@@ -28,11 +28,9 @@ docker run -d -e CI_SERVER_URL="https://gitlab.com/" \
 To create runner that registres itself in more then one directory use
 
 ```bash
-# testing
-REGISTRATION_TOKEN="hjz7hPBxAqU3CDamGdJo"
-ADMIN_TOKEN="ujFEXhs2w16AQ2qhaR7F"
+REGISTRATION_TOKEN=""
+ADMIN_TOKEN=""
 PROJECTS_TO_REGISTER="5309683;4904307" 
-#golang-demo;opstools
 
 docker run -d -e "CI_SERVER_URL=https://gitlab.com/" \
    -e REGISTRATION_TOKEN="$REGISTRATION_TOKEN" \
