@@ -4,17 +4,13 @@ if [ -z "$CI_SERVER_URL" ]; then
   CI_SERVER_URL="https://gitlab.com/"
 fi
 
+if [ -z "$DOCKER_IMAGE" ]; then
+  export DOCKER_IMAGE=docker:18.01.0-ce
+fi
+
 if [ -z "$REGISTRATION_TOKEN" ]; then
   echo "ERROR: Env REGISTRATION_TOKEN not set!"
   exit 1
-fi
-
-if [ "$PRIVILIGED_MODE" != "true" ]; then
-  PRIVILIGED_MODE="false"
-fi
-
-if [ "$LOCKED_MODE" != "true" ]; then
-  LOCKED_MODE="true"
 fi
 
 if [ "$ADMIN_TOKEN" != "" ]; then
@@ -55,7 +51,7 @@ trap "gitlab-runner stop" SIGTERM
 echo "===> Running gitlab-runner register..."
 export REGISTER_NON_INTERACTIVE=true
 
-gitlab-runner register --executor=docker --locked=$LOCKED_MODE --docker-image=docker:latest  --docker-privileged=$PRIVILIGED_MODE --docker-volumes=/var/run/docker.sock:/var/run/docker.sock
+gitlab-runner register --executor=docker $REGISTER_EXTRA_ARGS
 if [ $? -gt 0 ]; then
   echo "===> ERROR: Registration failed!"
   exit 1
