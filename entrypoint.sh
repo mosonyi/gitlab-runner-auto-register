@@ -18,11 +18,8 @@ if [ "$ADMIN_TOKEN" != "" ]; then
   PROJECTS_STRING="$PROJECTS_TO_REGISTER"
 fi
 
-if [ "$CUSTOM_RUNNER_NAME" != "" ]; then
-  export RUNNER_NAME="$CUSTOM_RUNNER_NAME"
-else
-  export RUNNER_NAME="$HOSTNAME"
-fi
+MY_NAME="${CUSTOM_RUNNER_NAME:-$HOSTNAME}"
+export RUNNER_NAME="$MY_NAME"
 
 # gitlab-ci-multi-runner data directory
 DATA_DIR="/etc/gitlab-runner"
