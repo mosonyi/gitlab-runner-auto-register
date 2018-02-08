@@ -75,6 +75,8 @@ docker exec -i gitlab-runner gitlab-runner register
 |`DOCKER_VOLUMES`       |  volume mounted by this runner                                                                                                           |                                 | false         |
 |`DOCKER_IMAGE`         |  docker image to use                                                                                                                     | docker:18.01.0-ce               | true          |
 |`REGISTER_EXTRA_ARGS`  |  can contain extra arguments for running `gitlab-runner register`. <br>Can be used for example to specify multiple --docker-volumes args |                                 | false         |
+|`RUNNER_TAG_LIST`      |  tags for given runner                                                                                                                   |                                 | false         |
+
 
 For more information about the the environment variables execute: 
 ```
