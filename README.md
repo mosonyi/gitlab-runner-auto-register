@@ -9,7 +9,7 @@ The default image needs additional step of executing script from outside of cont
 | tag               | version       |
 | ---------------   | --------------|
 | `0.0.3`           | 10.2.0        |
-| `0.0.4`-`0.0.6`   | 10.4.0        |
+| `0.0.4`-`0.0.9`   | 10.4.0        |
 
 
 # Running instructions
@@ -70,7 +70,7 @@ docker exec -i gitlab-runner gitlab-runner register
 |`DOCKER_PRIVILEGED`    |  should you need to run in priviliged mode set to true (otherwise defaults to false)                                                     | false                           | false         |           
 |`REGISTER_LOCKED`      |  should this runner be locked to this project or not                                                                                     | true                            | false         |
 |`ADMIN_TOKEN`          |  access token with admin privilages (if specified runner will be registered for projects`PROJECTS_TO_REGISTER`)                          |                                 | false         |
-|`PROJECTS_TO_REGISTER` |  project ids seperated by `;`                                                                                                            |                                 | false         |
+|`PROJECTS_TO_REGISTER` |  project ids seperated by `,` or `;`                                                                                                     |                                 | false         |
 |`CUSTOM_RUNNER_NAME`   |  runner's description                                                                                                                    | `$HOSTNAME`                     | false         |
 |`DOCKER_VOLUMES`       |  volume mounted by this runner                                                                                                           |                                 | false         |
 |`DOCKER_IMAGE`         |  docker image to use                                                                                                                     | docker:18.01.0-ce               | true          |

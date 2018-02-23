@@ -14,10 +14,13 @@ RUN apt-get update -y && \
 RUN curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | bash
 RUN apt-get -y install gitlab-runner
 
-ADD entrypoint.sh /
-ADD gitlab_functions.sh /
+RUN curl -LJO https://github.com/FlakM/gitlab-runner-cleaner/releases/download/0.0.2/gitlab-runner-cleaner.sh && \
+    chmod +x gitlab-runner-cleaner.sh
 
-RUN chmod +x /entrypoint.sh /gitlab_functions.sh
+ADD entrypoint.sh /
+
+
+RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint.sh"]
 CMD ["run", "--user=gitlab-runner", "--working-directory=/home/gitlab-runner"]

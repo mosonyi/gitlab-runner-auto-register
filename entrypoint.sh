@@ -15,7 +15,7 @@ fi
 
 if [ "$ADMIN_TOKEN" != "" ]; then
   REGISTER_OTHER_PROJECTS="true"
-  PROJECTS_STRING="$PROJECTS_TO_REGISTER"
+  PROJECTS_STRING=`echo "$PROJECTS_TO_REGISTER" | tr ";" ","`
 fi
 
 MY_NAME="${CUSTOM_RUNNER_NAME:-$HOSTNAME}"
@@ -56,16 +56,9 @@ fi
 
 
 if [ "$REGISTER_OTHER_PROJECTS" == "true" ]; then
-  source ./gitlab_functions.sh
-  RUNNER_ID=$(getRunnerIdByDescription "$RUNNER_NAME" "$CI_SERVER_URL" "$ADMIN_TOKEN")
-
-  projects=$(echo "$PROJECTS_STRING" | tr ";" "\n")
-
-  for PROJECT_ID in $projects
-  do
-      echo "registering runner $RUNNER_ID to [$PROJECT_ID]"
-      registerRunnerToProject "$RUNNER_ID" "$PROJECT_ID" "$CI_SERVER_URL" "$ADMIN_TOKEN"
-  done  
+  export GITLAB_TOKEN="$ADMIN_TOKEN"
+  
+  ./gitlab-runner-cleaner.sh register "$RUNNER_NAME" --byId=false --projects "$PROJECTS_STRING"
 fi
 
 
