@@ -10,6 +10,7 @@ The default image needs additional step of executing script from outside of cont
 | ---------------   | --------------|
 | `0.0.3`           | 10.2.0        |
 | `0.0.4`-`0.0.9`   | 10.4.0        |
+| `11.7.0`          | 11.7.0        |
 
 
 # Running instructions
