@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 ADD https://github.com/Yelp/dumb-init/releases/download/v1.0.2/dumb-init_1.0.2_amd64 /usr/bin/dumb-init
 RUN chmod +x /usr/bin/dumb-init
@@ -6,7 +6,7 @@ RUN chmod +x /usr/bin/dumb-init
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install jq -y && \
-    apt-get install -y ca-certificates curl apt-transport-https vim && \
+    apt-get install -y ca-certificates curl apt-transport-https vim gnupg && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

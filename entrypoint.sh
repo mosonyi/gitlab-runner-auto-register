@@ -5,7 +5,7 @@ if [ -z "$CI_SERVER_URL" ]; then
 fi
 
 if [ -z "$DOCKER_IMAGE" ]; then
-  export DOCKER_IMAGE=docker:18.01.0-ce
+  export DOCKER_IMAGE=docker:20.10.10
 fi
 
 if [ -z "$REGISTRATION_TOKEN" ]; then
